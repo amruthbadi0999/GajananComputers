@@ -1,0 +1,139 @@
+/* Path :- jeevansetu-frontend/src/index.css */
+
+@import "tailwindcss";
+@import "slick-carousel/slick/slick.css";
+@import "slick-carousel/slick/slick-theme.css";
+
+/* 
+  Theme: Blue/Purple/Neon
+  Vibe: Clean, Realistic, Live
+*/
+
+:root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: dark;
+  color: #e0e7ff; /* Very light indigo */
+  background-color: #030014; /* Deep dark violet/black */
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  /* Custom Glows */
+  --glow-primary: 0 0 20px rgba(99, 102, 241, 0.6);
+  --glow-secondary: 0 0 20px rgba(168, 85, 247, 0.6);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #0f0c29 40%, #000000 100%);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a; 
+}
+::-webkit-scrollbar-thumb {
+  background: #4f46e5; 
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #818cf8; 
+}
+
+/* Glassmorphism Utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.glass-panel:hover {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.2); 
+}
+
+/* Animations */
+@keyframes aurora {
+  0% { background-position: 50% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 50% 50%; }
+}
+
+.animate-aurora {
+  background-size: 200% 200%;
+  animation: aurora 15s ease infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+/* Typography Overrides */
+h1, h2, h3, h4, h5, h6 {
+  color: #ffffff;
+}
+
+a {
+  transition: all 0.3s ease;
+}
+a:hover {
+  text-shadow: 0 0 8px rgba(167, 139, 250, 0.5);
+}
+
+/* Button Reset */
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* --- Global Click/Tap Ripple Effect --- */
+.interaction-ripple {
+  position: fixed;
+  pointer-events: none;
+  border-radius: 9999px;
+  background: radial-gradient(circle at center, rgba(99,102,241,0.35) 0%, rgba(99,102,241,0.15) 35%, transparent 70%);
+  transform: translate(-50%, -50%);
+  opacity: 0.9;
+  animation: ripple-fade 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  z-index: 9999;
+}
+
+@keyframes ripple-fade {
+  0% { transform: translate(-50%, -50%) scale(0.2); opacity: 0.9; filter: blur(0px); }
+  100% { transform: translate(-50%, -50%) scale(1.6); opacity: 0; filter: blur(2px); }
+}
+
+/* --- Micro-interactions for buttons/links --- */
+.tap-scale {
+  transition: transform 150ms ease, box-shadow 200ms ease;
+}
+.tap-scale:active {
+  transform: scale(0.97);
+}
+.hover-raise {
+  transition: transform 200ms ease, box-shadow 200ms ease;
+}
+.hover-raise:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 20px rgba(99,102,241,0.15);
+}

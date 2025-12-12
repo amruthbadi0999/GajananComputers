@@ -1,0 +1,23 @@
+# Global ignores
+.DS_Store
+node_modules/
+**/node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# Env files (do not commit secrets)
+.env
+*.env
+laplink-frontend/.env
+laplink-backend/.env
+
+# Build outputs
+laplink-frontend/dist/
+laplink-backend/dist/
+coverage/
+
+# Tooling
+.vscode/
+.idea/
+.vercel/
+.netlify/
