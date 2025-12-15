@@ -3,17 +3,19 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
+const port = Number(process.env.SMTP_PORT || 465);
+
 const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT || 587),
-    secure: String(process.env.SMTP_PORT) === "465",
-    auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
-    },
-    connectionTimeout: 10000,
-    socketTimeout: 10000,
-    greetingTimeout: 10000,
+  host: process.env.SMTP_HOST,
+  port: port,
+  secure: port === 465, // true for 465, false for other ports
+  auth: {
+    user: process.env.SMTP_USER,
+    pass: process.env.SMTP_PASS,
+  },
+  connectionTimeout: 10000,
+  socketTimeout: 10000,
+  greetingTimeout: 10000,
 });
 
 export const verifySMTP = async () => {
@@ -26,12 +28,12 @@ export const verifySMTP = async () => {
 };
 
 export const sendOTP = async (email, otp, purpose = "Verification") => {
-    const mailOptions = {
-        from: `"Gajanan-Computers Support" <${process.env.SMTP_FROM}>`,
-        to: email,
-        subject: `Gajanan-Computers - ${purpose} OTP`,
-        text: `Your OTP for ${purpose} is ${otp}. It expires in 10 minutes.`,
-        html: `
+  const mailOptions = {
+    from: `"Gajanan-Computers Support" <${process.env.SMTP_FROM}>`,
+    to: email,
+    subject: `Gajanan-Computers - ${purpose} OTP`,
+    text: `Your OTP for ${purpose} is ${otp}. It expires in 10 minutes.`,
+    html: `
       <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
         <h2 style="color: #6d28d9;">Gajanan-Computers Security</h2>
         <p>Hello,</p>
@@ -41,17 +43,17 @@ export const sendOTP = async (email, otp, purpose = "Verification") => {
         <p>If you did not request this, please ignore this email.</p>
       </div>
     `,
-    };
+  };
 
-    await transporter.sendMail(mailOptions);
+  await transporter.sendMail(mailOptions);
 };
 
 export const sendWelcomeEmail = async (email, name) => {
-    const mailOptions = {
-        from: `"Gajanan-Computers Team" <${process.env.SMTP_FROM}>`,
-        to: email,
-        subject: "Welcome to Gajanan-Computers!",
-        html: `
+  const mailOptions = {
+    from: `"Gajanan-Computers Team" <${process.env.SMTP_FROM}>`,
+    to: email,
+    subject: "Welcome to Gajanan-Computers!",
+    html: `
       <div style="font-family: Arial, sans-serif; padding: 20px; color: #333;">
         <h2 style="color: #6d28d9;">Welcome to Gajanan-Computers, ${name}!</h2>
         <p>We are excited to have you on board.</p>
@@ -66,13 +68,13 @@ export const sendWelcomeEmail = async (email, name) => {
         <p>Best Regards,<br/>Gajanan-Computers Team</p>
       </div>
     `,
-    };
+  };
 
-    await transporter.sendMail(mailOptions);
+  await transporter.sendMail(mailOptions);
 };
 
 export const sendResetPasswordEmail = async (email, otp) => {
-    await sendOTP(email, otp, "Password Reset");
+  await sendOTP(email, otp, "Password Reset");
 };
 
 export const notifyAdminNewRequest = async (type, data) => {
