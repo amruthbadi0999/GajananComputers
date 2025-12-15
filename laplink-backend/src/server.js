@@ -9,6 +9,7 @@ import authRoutes from "./routes/authRoutes.js";
 import laptopRoutes from "./routes/laptopRoutes.js";
 import serviceRoutes from "./routes/serviceRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
+import { verifySMTP } from "./services/email.service.js";
 
 // Load env variables
 dotenv.config();
@@ -47,9 +48,16 @@ app.use("/api/laptops", laptopRoutes); // Buy / Sell
 app.use("/api/service", serviceRoutes); // Repairs
 app.use("/api/admin", adminRoutes); // Admin Management
 
+// Health Check Route
+app.get("/", (req, res) => {
+    res.status(200).json({ message: "API is running successfully", environment: process.env.NODE_ENV });
+});
+
 // Server listen
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
     console.log(`🚀 Server running in ${process.env.NODE_ENV} mode on port ${PORT}`)
+    // Verify SMTP once on startup to catch misconfig fast (non-blocking)
+    verifySMTP();
 });
