@@ -11,10 +11,8 @@ import serviceRoutes from "./routes/serviceRoutes.js";
 import adminRoutes from "./routes/adminRoutes.js";
 import { verifySMTP } from "./services/email.service.js";
 
-// Load env variables (avoid overriding Render/Vercel envs in production)
-if (process.env.NODE_ENV !== "production") {
-    dotenv.config();
-}
+// Load env variables
+dotenv.config();
 
 // Connect DB
 connectDB();
