@@ -13,13 +13,6 @@ const transporter = nodemailer.createTransport({
 
 export const verifySMTP = async () => {
   try {
-    const config = {
-      host: transporter.options.host,
-      port: transporter.options.port,
-      secure: transporter.options.secure,
-      user: transporter.options.auth.user,
-    };
-    console.log("🔍 Attempting SMTP Connection with:", JSON.stringify(config, null, 2));
     await transporter.verify();
     console.log("📬 SMTP ready: ", process.env.SMTP_HOST, process.env.SMTP_USER);
   } catch (err) {
